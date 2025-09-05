@@ -14,16 +14,29 @@ fun main() {
 
 
     // Função que vai mostrar as vagas disponiveis
+
     fun mostraVagas() {
+        val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
+
         for (i in vagas.indices) {
-
             if (vagas[i] != false) {
-                println("A vaga ${i + 1} esta disponivel\n---------------------")
+                // Usando o emoji correspondente à posição
+                println("${emojis[i]} A vaga ${i + 1} está disponível")
             }
-
         }
     }
 
+//    fun mostraVagas() {
+//        val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "1️⃣0️⃣")
+//        for (i in vagas.indices) {
+//
+//            if (vagas[i] != false) {
+//                println("A vaga ${i + 1} esta disponivel")
+//            }
+//
+//        }
+//    }
+//
     // função para alocar o veiculo
     fun selecionarVaga() {
         println("Digite qual vaga deseja alocar seu veiculo")
