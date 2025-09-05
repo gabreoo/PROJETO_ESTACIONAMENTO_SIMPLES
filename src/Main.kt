@@ -8,8 +8,12 @@ fun main() {
     // 5. impedir que as escolhas fujam do escopo ✔️
     // 6. adicionar a feature de outra vaga ️ ️✔️
     // 7. imprimir as vagas escolhidas ✔️
-
+    // 7.5 Ajustar a mensagem das vagas escolhidas e provalveelmente colocar uma função para isso
     // 8. ajustar ao terminar na segunda vaga a mensagem de agradecemos sua preferencia
+    // 9. Ter a opção de querer editar ou não a vaga escolhida
+    // 10. Trocar a vaga selecionada
+
+
 
     val vagas = Array(10) { true }
     val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
@@ -65,7 +69,7 @@ fun main() {
                     mostraVagas()
                     selecionarVaga()
                 }
-                "2" -> println("Certo, agradecemos sua preferencia")
+                "2" -> println("Certo, agradecemos sua preferência")
                 else -> println("Digite um número válido")
             }
         }
@@ -90,12 +94,33 @@ fun main() {
 
     }
 
+    fun editaVaga () {
+        println("Você deseja editar a vaga escolhida?\n1. sim\n2. não")
 
-    forceType()
+        var choice: String = ""
 
-    selecionarVaga()
+        do {
+            println("Digite apenas '1' ou '2'")
+            choice = readln()
+        }
+        while (choice != "1" && choice != "2")
 
-    selecionarOutraVaga()
 
-    println(vagasEscolhidas)
+    }
+
+
+        fun execute() {
+            forceType()
+
+            selecionarVaga()
+
+            selecionarOutraVaga()
+
+            println(vagasEscolhidas) // melhorar a mensagem aqui
+
+            editaVaga()
+}
+
+
+    execute()
 }
