@@ -7,36 +7,30 @@ fun main() {
     // 4. selecionar vaga desejada ✔️
     // 5. impedir que as escolhas fujam do escopo ✔️
     // 6. adicionar a feature de outra vaga ️ ️✔️
-    // 7. imprimir as vagas escolhidas ⏳
+    // 7. imprimir as vagas escolhidas ✔️
+
     // 8. ajustar ao terminar na segunda vaga a mensagem de agradecemos sua preferencia
 
     val vagas = Array(10) { true }
+    val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
+    var numero: Int = 0
+    val vagasEscolhidas = mutableListOf<Int>()
 
 
     // Função que vai mostrar as vagas disponiveis
 
     fun mostraVagas() {
-        val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
+
 
         for (i in vagas.indices) {
             if (vagas[i] != false) {
                 // Usando o emoji correspondente à posição
-                println("${emojis[i]} A vaga ${i + 1} está disponível")
+                println("${emojis[i]} ➟ está disponível")
             }
         }
     }
 
-//    fun mostraVagas() {
-//        val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "1️⃣0️⃣")
-//        for (i in vagas.indices) {
-//
-//            if (vagas[i] != false) {
-//                println("A vaga ${i + 1} esta disponivel")
-//            }
-//
-//        }
-//    }
-//
+
     // função para alocar o veiculo
     fun selecionarVaga() {
         println("Digite qual vaga deseja alocar seu veiculo")
@@ -46,6 +40,7 @@ fun main() {
 
         if (vagas[vagaEscolhida] == true) {
             vagas[vagaEscolhida] = false
+            vagasEscolhidas.add(numero)
             println("Você escolheu a vaga $numero")
         }
         else {
@@ -53,6 +48,7 @@ fun main() {
         }
 
     }
+
 
     fun selecionarOutraVaga () {
         println("Você deseja alocar seu veiculo em outra vaga?\n1. sim\n2. não")
@@ -95,10 +91,11 @@ fun main() {
     }
 
 
-
     forceType()
 
     selecionarVaga()
 
     selecionarOutraVaga()
+
+    println(vagasEscolhidas)
 }
