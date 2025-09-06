@@ -1,126 +1,116 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+// 1. Criar estacionamento ✔️
+// 2. Input para procurar ver vagas ✔️
+// 3. Listar vagas disponiveis ✔️
+// 4. selecionar vaga desejada ✔️
+// 5. impedir que as escolhas fujam do escopo ✔️
+// 6. adicionar a feature de outra vaga ️ ️✔️
+// 7. imprimir as vagas escolhidas ✔️
+// 7.5 Ajustar a mensagem das vagas escolhidas e provalveelmente colocar uma função para isso ✔️
+// 8. ajustar ao terminar na segunda vaga a mensagem de agradecemos sua preferencia ✔️
+// 9. Ter a opção de querer editar ou não a vaga escolhida ✔️
+// 10. Trocar a vaga selecionada ✔️
+// 11.
+
 fun main() {
-    // 1. Criar estacionamento ✔️
-    // 2. Input para procurar ver vagas ✔️
-    // 3. Listar vagas disponiveis ✔️
-    // 4. selecionar vaga desejada ✔️
-    // 5. impedir que as escolhas fujam do escopo ✔️
-    // 6. adicionar a feature de outra vaga ️ ️✔️
-    // 7. imprimir as vagas escolhidas ✔️
-    // 7.5 Ajustar a mensagem das vagas escolhidas e provalveelmente colocar uma função para isso
-    // 8. ajustar ao terminar na segunda vaga a mensagem de agradecemos sua preferencia
-    // 9. Ter a opção de querer editar ou não a vaga escolhida
-    // 10. Trocar a vaga selecionada
-
-
-
     val vagas = Array(10) { true }
     val emojis = arrayOf("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
-    var numero: Int = 0
     val vagasEscolhidas = mutableListOf<Int>()
 
-
-    // Função que vai mostrar as vagas disponiveis
-
     fun mostraVagas() {
-
-
+        println("\n=== VAGAS DISPONÍVEIS ===")
         for (i in vagas.indices) {
-            if (vagas[i] != false) {
-                // Usando o emoji correspondente à posição
-                println("${emojis[i]} ➟ está disponível")
-            }
+            if (vagas[i]) println("${emojis[i]} ➟ Vaga ${i + 1} disponível")
         }
+        println("=========================\n")
     }
 
-
-    // função para alocar o veiculo
     fun selecionarVaga() {
-        println("Digite qual vaga deseja alocar seu veiculo")
-
-        val numero = readln().toInt()
-        val vagaEscolhida = numero - 1
-
-        if (vagas[vagaEscolhida] == true) {
-            vagas[vagaEscolhida] = false
-            vagasEscolhidas.add(numero)
-            println("Você escolheu a vaga $numero")
-        }
-        else {
-            println("A vaga $numero já está ocupada, escolha outra.")
-        }
-
-    }
-
-
-    fun selecionarOutraVaga () {
-        println("Você deseja alocar seu veiculo em outra vaga?\n1. sim\n2. não")
-
-        var choice : String = ""
-
-        do {
-            println("Digite apenas '1' ou '2'")
-            choice = readln()
-
-
-            when (choice) {
-                "1" -> {
-                    mostraVagas()
-                    selecionarVaga()
-                }
-                "2" -> println("Certo, agradecemos sua preferência")
-                else -> println("Digite um número válido")
-            }
-        }
-        while (choice != "1" && choice != "2" )
-
-
-    }
-    // funcao que vai executar os demais codigos
-    fun forceType () {
-        var listar: String
-        do {
-            println("Digite \"vagas\" para ver as vagas disponiveis")
-            listar = readln().lowercase()
-
-            if (listar == "vagas"){
+        while (true) {
+            println("Digite o número da vaga desejada (1-10):")
+            val input = readln()
+            val numero = input.toIntOrNull()
+            if (numero == null || numero < 1 || numero > 10) {
+                println("Vaga inválida! Escolha entre 1 e 10.")
+            } else if (!vagas[numero - 1]) {
+                println("❌ A vaga $numero já está ocupada.")
                 mostraVagas()
+            } else {
+                vagas[numero - 1] = false
+                vagasEscolhidas.add(numero)
+                println("✅ Vaga $numero reservada com sucesso!")
+                break
             }
-            else {println("Entrada invalida, por favor verifique se você digitou 'vagas' corretamente")}
         }
-            while (listar != "vagas")
-
-
     }
 
-    fun editaVaga () {
-        println("Você deseja editar a vaga escolhida?\n1. sim\n2. não")
-
-        var choice: String = ""
-
-        do {
-            println("Digite apenas '1' ou '2'")
-            choice = readln()
+    fun selecionarOutraVaga() {
+        while (true) {
+            println("Você deseja alocar seu veículo em outra vaga?\n1. sim\n2. não")
+            val choice = readln()
+            if (choice == "1") {
+                mostraVagas()
+                selecionarVaga()
+            } else if (choice == "2") {
+                break
+            } else {
+                println("Digite apenas '1' ou '2'")
+            }
         }
-        while (choice != "1" && choice != "2")
-
-
+        println("Agradecemos sua preferência!\n")
     }
 
+    fun forceType() {
+        while (true) {
+            println("Digite \"vagas\" para ver as vagas disponíveis")
+            val listar = readln().lowercase()
+            if (listar == "vagas") {
+                mostraVagas()
+                break
+            } else {
+                println("Entrada inválida, por favor digite 'vagas' corretamente.")
+            }
+        }
+    }
 
-        fun execute() {
-            forceType()
+    fun imprimeVagasEscolhidas() {
+        if (vagasEscolhidas.isEmpty()) {
+            println("Nenhuma vaga foi escolhida.")
+        } else {
+            val mensagem = vagasEscolhidas.joinToString(", ") { "${emojis[it - 1]} Vaga $it" }
+            println("Vagas escolhidas: $mensagem")
+        }
+    }
 
-            selecionarVaga()
+    fun editaVaga() {
+        while (true) {
+            println("Você deseja editar a(s) vaga(s) escolhida(s)?\n1. sim\n2. não")
+            val choice = readln()
+            if (choice == "1") {
+                vagasEscolhidas.forEach { vagas[it - 1] = true }
+                vagasEscolhidas.clear()
+                println("Vagas liberadas. Escolha novamente:")
+                mostraVagas()
+                selecionarVaga()
+                selecionarOutraVaga()
+                imprimeVagasEscolhidas()
+                println("Agradecemos sua preferência!")
+                break
+            } else if (choice == "2") {
+                println("Certo, agradecemos sua preferência!")
+                break
+            } else {
+                println("Digite apenas '1' ou '2'")
+            }
+        }
+    }
 
-            selecionarOutraVaga()
+    fun executar() {
+        forceType()
+        selecionarVaga()
+        selecionarOutraVaga()
+        imprimeVagasEscolhidas()
+        editaVaga()
+    }
 
-            println(vagasEscolhidas) // melhorar a mensagem aqui
-
-            editaVaga()
-}
-
-
-    execute()
+    executar()
 }
